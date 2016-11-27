@@ -1,4 +1,4 @@
-import Queue
+import queue
 import threading
 import subprocess
 import shlex
@@ -43,7 +43,7 @@ class AsyncProcessReader(threading.Thread):
 class ProcessPool:
     def __init__(self):
         self.__threads = []
-        self.__output_q = Queue.Queue(0)
+        self.__output_q = queue.Queue(0)
 
     def execute(self, cmd):
         subproc = subprocess.Popen(cmd, shell=True,
@@ -66,7 +66,7 @@ class ProcessPool:
         try:
             for result in iter(self.__output_q.get_nowait, None):
                 results.append(result)
-        except Queue.Empty:
+        except queue.Empty:
             pass
 
         return results
